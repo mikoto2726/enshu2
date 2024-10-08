@@ -7,55 +7,64 @@
 :vpi_module "/usr/lib/x86_64-linux-gnu/ivl/vhdl_textio.vpi";
 :vpi_module "/usr/lib/x86_64-linux-gnu/ivl/v2005_math.vpi";
 :vpi_module "/usr/lib/x86_64-linux-gnu/ivl/va_math.vpi";
-S_0x562bc2fd8d90 .scope module, "test_my_nand" "test_my_nand" 2 1;
+S_0x564288b8cd90 .scope module, "test_led7seg" "test_led7seg" 2 1;
  .timescale 0 0;
-v0x562bc3024df0_0 .var "in1", 0 0;
-v0x562bc3024ec0_0 .var "in2", 0 0;
-v0x562bc3024f90_0 .net "out", 0 0, L_0x562bc30251d0;  1 drivers
-S_0x562bc2fd8f20 .scope module, "mn1" "my_nand" 2 4, 3 1 0, S_0x562bc2fd8d90;
+v0x564288bdbc70_0 .var "in1", 0 0;
+v0x564288bdbd10_0 .var "in2", 0 0;
+v0x564288bdbde0_0 .net "out", 6 0, L_0x564288bdc530;  1 drivers
+S_0x564288b8cf20 .scope module, "l7s" "led7seg" 2 4, 3 1 0, S_0x564288b8cd90;
  .timescale 0 0;
-    .port_info 0 /INPUT 1 "a";
-    .port_info 1 /INPUT 1 "b";
-    .port_info 2 /OUTPUT 1 "y";
-L_0x562bc3025090 .functor AND 1, v0x562bc3024df0_0, v0x562bc3024ec0_0, C4<1>, C4<1>;
-L_0x562bc30251d0 .functor NOT 1, L_0x562bc3025090, C4<0>, C4<0>, C4<0>;
-v0x562bc3013990_0 .net *"_ivl_0", 0 0, L_0x562bc3025090;  1 drivers
-v0x562bc3024b50_0 .net "a", 0 0, v0x562bc3024df0_0;  1 drivers
-v0x562bc3024c10_0 .net "b", 0 0, v0x562bc3024ec0_0;  1 drivers
-v0x562bc3024cb0_0 .net "y", 0 0, L_0x562bc30251d0;  alias, 1 drivers
-    .scope S_0x562bc2fd8d90;
+    .port_info 0 /INPUT 1 "i1";
+    .port_info 1 /INPUT 1 "i2";
+    .port_info 2 /OUTPUT 7 "led";
+L_0x564288bdbee0 .functor NOT 1, v0x564288bdbd10_0, C4<0>, C4<0>, C4<0>;
+L_0x564288bdbf80 .functor AND 1, v0x564288bdbc70_0, L_0x564288bdbee0, C4<1>, C4<1>;
+L_0x564288bdc090 .functor NOT 1, v0x564288bdbc70_0, C4<0>, C4<0>, C4<0>;
+L_0x564288bdc100 .functor AND 1, L_0x564288bdc090, v0x564288bdbd10_0, C4<1>, C4<1>;
+L_0x564288bdc220 .functor NOT 1, v0x564288bdbd10_0, C4<0>, C4<0>, C4<0>;
+L_0x564288bdc290 .functor AND 1, v0x564288bdbc70_0, L_0x564288bdc220, C4<1>, C4<1>;
+L_0x564288bdc400 .functor BUFZ 1, v0x564288bdbc70_0, C4<0>, C4<0>, C4<0>;
+L_0x564288bdc470 .functor OR 1, v0x564288bdbc70_0, v0x564288bdbd10_0, C4<0>, C4<0>;
+L_0x564288bdc800 .functor NOT 1, v0x564288bdbd10_0, C4<0>, C4<0>, C4<0>;
+v0x564288bb4570_0 .net *"_ivl_12", 0 0, L_0x564288bdc090;  1 drivers
+v0x564288bb4070_0 .net *"_ivl_14", 0 0, L_0x564288bdc100;  1 drivers
+v0x564288bb3770_0 .net *"_ivl_18", 0 0, L_0x564288bdc220;  1 drivers
+v0x564288bb2e70_0 .net *"_ivl_2", 0 0, L_0x564288bdbee0;  1 drivers
+v0x564288bb2990_0 .net *"_ivl_20", 0 0, L_0x564288bdc290;  1 drivers
+v0x564288bb2070_0 .net *"_ivl_25", 0 0, L_0x564288bdc400;  1 drivers
+v0x564288bdb630_0 .net *"_ivl_29", 0 0, L_0x564288bdc470;  1 drivers
+v0x564288bdb6f0_0 .net *"_ivl_33", 0 0, L_0x564288bdc800;  1 drivers
+v0x564288bdb7d0_0 .net *"_ivl_4", 0 0, L_0x564288bdbf80;  1 drivers
+L_0x7f692f608018 .functor BUFT 1, C4<0>, C4<0>, C4<0>, C4<0>;
+v0x564288bdb8b0_0 .net/2s *"_ivl_8", 0 0, L_0x7f692f608018;  1 drivers
+v0x564288bdb990_0 .net "i1", 0 0, v0x564288bdbc70_0;  1 drivers
+v0x564288bdba50_0 .net "i2", 0 0, v0x564288bdbd10_0;  1 drivers
+v0x564288bdbb10_0 .net "led", 6 0, L_0x564288bdc530;  alias, 1 drivers
+LS_0x564288bdc530_0_0 .concat8 [ 1 1 1 1], L_0x564288bdbf80, L_0x7f692f608018, L_0x564288bdc100, L_0x564288bdc290;
+LS_0x564288bdc530_0_4 .concat8 [ 1 1 1 0], L_0x564288bdc400, L_0x564288bdc470, L_0x564288bdc800;
+L_0x564288bdc530 .concat8 [ 4 3 0 0], LS_0x564288bdc530_0_0, LS_0x564288bdc530_0_4;
+    .scope S_0x564288b8cd90;
 T_0 ;
-    %vpi_call 2 6 "$dumpfile", "test_my_nand.vcd" {0 0 0};
-    %vpi_call 2 7 "$dumpvars", 32'sb00000000000000000000000000000000, S_0x562bc2fd8d90 {0 0 0};
-    %vpi_call 2 8 "$monitor", "%t: in1 = %b, in2 = %b, out = %b", $time, v0x562bc3024df0_0, v0x562bc3024ec0_0, v0x562bc3024f90_0 {0 0 0};
+    %vpi_call 2 6 "$monitor", "%t: in1 = %b, in2 = %b, out = %b", $time, v0x564288bdbc70_0, v0x564288bdbd10_0, v0x564288bdbde0_0 {0 0 0};
     %pushi/vec4 0, 0, 1;
-    %store/vec4 v0x562bc3024df0_0, 0, 1;
+    %store/vec4 v0x564288bdbc70_0, 0, 1;
     %pushi/vec4 0, 0, 1;
-    %store/vec4 v0x562bc3024ec0_0, 0, 1;
+    %store/vec4 v0x564288bdbd10_0, 0, 1;
     %delay 10, 0;
     %pushi/vec4 1, 0, 1;
-    %store/vec4 v0x562bc3024ec0_0, 0, 1;
+    %store/vec4 v0x564288bdbd10_0, 0, 1;
     %delay 10, 0;
     %pushi/vec4 1, 0, 1;
-    %store/vec4 v0x562bc3024df0_0, 0, 1;
-    %pushi/vec4 0, 0, 1;
-    %store/vec4 v0x562bc3024ec0_0, 0, 1;
-    %delay 10, 0;
-    %pushi/vec4 1, 0, 1;
-    %store/vec4 v0x562bc3024df0_0, 0, 1;
-    %pushi/vec4 1, 0, 1;
-    %store/vec4 v0x562bc3024ec0_0, 0, 1;
+    %store/vec4 v0x564288bdbc70_0, 0, 1;
     %delay 10, 0;
     %pushi/vec4 0, 0, 1;
-    %store/vec4 v0x562bc3024df0_0, 0, 1;
-    %pushi/vec4 0, 0, 1;
-    %store/vec4 v0x562bc3024ec0_0, 0, 1;
-    %vpi_call 2 14 "$finish" {0 0 0};
+    %store/vec4 v0x564288bdbd10_0, 0, 1;
+    %vpi_call 2 11 "$finish" {0 0 0};
     %end;
     .thread T_0;
 # The file index is used to find the file name in the following table.
 :file_names 4;
     "N/A";
     "<interactive>";
-    "test_my_nand.v";
-    "my_nand.v";
+    "test_led7seg.v";
+    "led7seg.v";
