@@ -1,4 +1,4 @@
-module led7seg(i1, i2, led);
+module led7seg(i1, i2, led):
 
 input i1, i2;
 output [6:0] led;
