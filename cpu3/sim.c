@@ -176,8 +176,7 @@ int sim_ins()
             break;
         case 0x1060: // MUL
             // To be written
-            if( regfile[rs] == 0 ) // Division by zero check
-                goto L_DIV0;
+            regfile[rd] = regfile[rd]*regfile[rs];
             name = "MUL";
             break;
         case 0x1080: // MV
