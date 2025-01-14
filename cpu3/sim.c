@@ -6,9 +6,11 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <stdlib.h>
+#include <stdbool.h> // 無限ループ検出用
 
 #define LINESIZE 256 // Max number of characters of input line
 #define MEMSIZE 4096 // Memory size (Number of bytes)
+#define MAX_HISTORY 1000 // 命令履歴の最大記録数
 
 unsigned char mem[MEMSIZE]; //Memory
 int regfile[16]; // Register file
@@ -17,6 +19,23 @@ int cbit = 0; // C-bit (Condition bit)
 
 int trace = 0; // Trace control flag
 
+int history[MAX_HISTORY]; // 実行したPCの履歴
+int history_count = 0; // 履歴の記録数
+
+bool is_infinite_loop(int pc) {
+    for (int i = 0; i < history_count; i++) {
+        if (history[i] == pc) {
+            return true;
+        }
+    }
+    return false;
+}
+
+void add_to_history(int pc) {
+    if (history_count < MAX_HISTORY) {
+        history[history_count++] = pc;
+    }
+}
 // Skip space characters in the input line
 char *skipspace(char *p)
 {
@@ -96,6 +115,14 @@ int sim_ins()
     long long int ll; // Working variable for 64-bit int
     char *name; // Instruction name to output comment
 
+     // 無限ループの検出
+    if (is_infinite_loop(pc)) {
+        printf("Infinite loop detected at PC = %08x\n", pc);
+        return -1;
+    }
+    add_to_history(pc);
+
+
     icode1 = get2bytes(pc); // Fetch the first 16-bit code
     if( (icode1&0x8000) == 0 ) { // If the MSB of the first 16-bit is 0, it is a 16-bit instruction
         nextpc = pc+2; // The next instruction code will be fetched from the address of pc+2
@@ -104,186 +131,194 @@ int sim_ins()
         nextpc = pc+4; // The next instruction code will be fetched from the address of pc+4
     }
 
+    if (nextpc < 0 || nextpc >= MEMSIZE) {
+        printf("Program counter out of bounds: %08x\n", nextpc);
+        return -1;
+    }
+
+
     rd = (icode1>>8)&0x0f;
     rs = icode1&0x0f;
+
+
     switch( icode1&0xf0f0 ) {
-    case 0x00a0: // ADD
-        regfile[rd] += regfile[rs];
-        name = "ADD";
-        break;
-    case 0x80a0: // ADD3
-        regfile[rd] = regfile[rs]+(short)icode2;
-        name = "ADD3";
-        break;
-    case 0x00c0: // AND
-        // To be written
-        regfile[rd] = regfile[rd]&regfile[rs];
-        name = "AND";
-        break;
-    case 0xb000: // BEQ
-        if( regfile[rd] == regfile[rs] )
-            nextpc = (pc&0xfffffffc)+((short)icode2<<2); 
-        name = "BEQ";
-        break;
-    case 0x0040: // CMP
-        cbit = ((regfile[rd] < regfile[rs]) ? 1 : 0);
-        name = "CMP";
-        break;
-    case 0x20c0: // LD
-        // To be written
-        a = regfile[rs]&0xfffffffc;
-        name = "LD";
-        break;
-    case 0x2080: // LDB
-        // To be written
-        a = regfile[rs]&0xfffffffc;
-        name = "LDB";
-        break;
-    case 0x1060: // MUL
-        // To be written
-        if( regfile[rs] == 0 ) // Division by zero check
-            goto L_DIV0;
-        name = "MUL";
-        break;
-    case 0x1080: // MV
-        // To be written
-        regfile[rd] = regfile[rs];
-        name = "MV";
-        break;
-    case 0x0030: // NEG
-        // To be written
-        regfile[rd] = -regfile[rs];
-        name = "NEG";
-        break;
-    case 0x00b0: // NOT
-        // To be written
-        regfile[rd] = ~regfile[rs];
-        name = "NOT";
-        break;
-    case 0x00e0: // OR
-        // To be written
-        regfile[rd] = regfile[rd]|regfile[rs];
-        name = "OR";
-        break;
-    case 0x80e0: // OR3
-        regfile[rd] = regfile[rs]|(unsigned short)icode2;
-        name = "OR3";
-        break;
-    case 0x1040: // SLL
-        // To be written
-        regfile[rd] <<= (icode1&0x1f);
-        name = "SLL";
-        break;
-    case 0x5040: // SLLI
-    case 0x5050: // SLLI
-        regfile[rd] <<= (icode1&0x1f);
-        name = "SLLI";
-        break;
-    case 0x1000: // SRL
-        // To be written
-        regfile[rd] = (unsigned)regfile[rd]>>(icode1&0x1f);
-        name = "SRL";
-        break;
-    case 0x5000: // SRLI
-    case 0x5010: // SRLI
-        regfile[rd] = (unsigned)regfile[rd]>>(icode1&0x1f);
-        name = "SRLI";
-        break;
-    case 0x2040: // ST
-        // To be written
-        a = regfile[rs]&0xfffffffc;
-        name = "ST";
-        break;
-    case 0x2000: // STB
-        // To be written
-        a = regfile[rs]&0xfffffffc;
-        name = "STB";
-        break;
-    case 0x0020: // SUB
-        // To be written
-        regfile[rd] = regfile[rd]-regfile[rs];
-        name = "SUB";
-        break;
-    case 0x00d0: // XOR
-        // To be written
-        regfile[rd] = regfile[rd]^regfile[rs];
-        name = "XOR";
-        break;
-    default:
-        switch( icode1&0xff00 ) {
-        case 0x7c00: // BC
-            if( cbit == 1 )
-                nextpc = (pc&0xfffffffc)+((char)(icode1&0x00ff)<<2);
-            name = "BC";
+        case 0x00a0: // ADD
+            regfile[rd] += regfile[rs];
+            name = "ADD";
             break;
-        case 0x7f00: // BRA
-            nextpc = (pc&0xfffffffc)+((char)(icode1&0x00ff)<<2);
-            name = "BRA";
+        case 0x80a0: // ADD3
+            regfile[rd] = regfile[rs]+(short)icode2;
+            name = "ADD3";
+            break;
+        case 0x00c0: // AND
+            // To be written
+            regfile[rd] = regfile[rd]&regfile[rs];
+            name = "AND";
+            break;
+        case 0xb000: // BEQ
+            if( regfile[rd] == regfile[rs] )
+                nextpc = (pc&0xfffffffc)+((short)icode2<<2); 
+            name = "BEQ";
+            break;
+        case 0x0040: // CMP
+            cbit = ((regfile[rd] < regfile[rs]) ? 1 : 0);
+            name = "CMP";
+            break;
+        case 0x20c0: // LD
+            // To be written
+            a = regfile[rs]&0xfffffffc;
+            name = "LD";
+            break;
+        case 0x2080: // LDB
+            // To be written
+            a = regfile[rs]&0xfffffffc;
+            name = "LDB";
+            break;
+        case 0x1060: // MUL
+            // To be written
+            if( regfile[rs] == 0 ) // Division by zero check
+                goto L_DIV0;
+            name = "MUL";
+            break;
+        case 0x1080: // MV
+            // To be written
+            regfile[rd] = regfile[rs];
+            name = "MV";
+            break;
+        case 0x0030: // NEG
+            // To be written
+            regfile[rd] = -regfile[rs];
+            name = "NEG";
+            break;
+        case 0x00b0: // NOT
+            // To be written
+            regfile[rd] = ~regfile[rs];
+            name = "NOT";
+            break;
+        case 0x00e0: // OR
+            // To be written
+            regfile[rd] = regfile[rd]|regfile[rs];
+            name = "OR";
+            break;
+        case 0x80e0: // OR3
+            regfile[rd] = regfile[rs]|(unsigned short)icode2;
+            name = "OR3";
+            break;
+        case 0x1040: // SLL
+            // To be written
+            regfile[rd] <<= (icode1&0x1f);
+            name = "SLL";
+            break;
+        case 0x5040: // SLLI
+        case 0x5050: // SLLI
+            regfile[rd] <<= (icode1&0x1f);
+            name = "SLLI";
+            break;
+        case 0x1000: // SRL
+            // To be written
+            regfile[rd] = (unsigned)regfile[rd]>>(icode1&0x1f);
+            name = "SRL";
+            break;
+        case 0x5000: // SRLI
+        case 0x5010: // SRLI
+            regfile[rd] = (unsigned)regfile[rd]>>(icode1&0x1f);
+            name = "SRLI";
+            break;
+        case 0x2040: // ST
+            // To be written
+            a = regfile[rs]&0xfffffffc;
+            name = "ST";
+            break;
+        case 0x2000: // STB
+            // To be written
+            a = regfile[rs]&0xfffffffc;
+            name = "STB";
+            break;
+        case 0x0020: // SUB
+            // To be written
+            regfile[rd] = regfile[rd]-regfile[rs];
+            name = "SUB";
+            break;
+        case 0x00d0: // XOR
+            // To be written
+            regfile[rd] = regfile[rd]^regfile[rs];
+            name = "XOR";
             break;
         default:
-            switch( icode1&0xfff0 ) {
-            case 0x8040: // CMPI
-                // To be written
-                if( regfile[rd] == (char)(icode1&0x00ff) ) // Set C-bit if equal
-                    cbit = 1;
-                else
-                    cbit = 0;
-                name = "CMPI";
+            switch( icode1&0xff00 ) {
+            case 0x7c00: // BC
+                if( cbit == 1 )
+                    nextpc = (pc&0xfffffffc)+((char)(icode1&0x00ff)<<2);
+                name = "BC";
                 break;
-            case 0x1ec0: // JL
-                regfile[14] = (pc&0xfffffffc)+4;
-                nextpc = regfile[rs]&0xfffffffc;
-                name = "JL";
-                break;
-            case 0x1fc0: // JMP
-                nextpc = regfile[rs]&0xfffffffc;
-                name = "JMP";
-                break;
-            case 0x10f0: // Trap (Simulation command)
-                name = "trap";
-                switch( rs ) {
-                case 0: // Stop simukation
-                    goto L_STOP;
-                case 1: // Trace on
-                    trace = 1;
-                    break;
-                case 2: // Display R0-R3
-                    for( i = 0; i < 4; i++ )
-                        printf("R%d = %d ( 0x%08x )\n", i, regfile[i], regfile[i]);
-                    break;
-                case 3: // Display R0-R15
-                    for( i = 0; i < 16; i++ )
-                        printf("R%d = %d ( 0x%08x )\n", i, regfile[i], regfile[i]);
-                    break;
-                case 4: // Display string from R0
-                    printf("%08x \"%s\"\n", regfile[0], mem+regfile[0] );
-                    break;
-                case 5: // Display string from R0, and string from R1
-                    printf("%08x \"%s\"\n", regfile[0], mem+regfile[0] );
-                    printf("%08x \"%s\"\n", regfile[1], mem+regfile[1] );
-                    break;
-                case 6: // Display new-line
-                    printf("\n");
-                    break;
-                }
+            case 0x7f00: // BRA
+                nextpc = (pc&0xfffffffc)+((char)(icode1&0x00ff)<<2);
+                name = "BRA";
                 break;
             default:
-                if( (icode1&0xf000) == 0x4000 ) { // ADDI
-                    regfile[rd] += (char)(icode1&0x00ff);
-                    name = "ADDI";
-                } else if( (icode1&0xf0ff) == 0x90f0 ) { // LDI
-                    regfile[rd] = (short)icode2;
-                    name = "LDI";
-                } else if( (icode1&0xffff) == 0x7000 ) { // NOP
-                    name = "NOP";
-                } else if( (icode1&0xf0ff) == 0xd0c0 ) { // SETH
-                    regfile[rd] = (short)icode2<<16;
-                    name = "SETH";
-                } else {
-                    goto L_DECERR;
+                switch( icode1&0xfff0 ) {
+                case 0x8040: // CMPI
+                    // To be written
+                    if( regfile[rd] == (char)(icode1&0x00ff) ) // Set C-bit if equal
+                        cbit = 1;
+                    else
+                        cbit = 0;
+                    name = "CMPI";
+                    break;
+                case 0x1ec0: // JL
+                    regfile[14] = (pc&0xfffffffc)+4;
+                    nextpc = regfile[rs]&0xfffffffc;
+                    name = "JL";
+                    break;
+                case 0x1fc0: // JMP
+                    nextpc = regfile[rs]&0xfffffffc;
+                    name = "JMP";
+                    break;
+                case 0x10f0: // Trap (Simulation command)
+                    name = "trap";
+                    switch( rs ) {
+                    case 0: // Stop simukation
+                        goto L_STOP;
+                    case 1: // Trace on
+                        trace = 1;
+                        break;
+                    case 2: // Display R0-R3
+                        for( i = 0; i < 4; i++ )
+                            printf("R%d = %d ( 0x%08x )\n", i, regfile[i], regfile[i]);
+                        break;
+                    case 3: // Display R0-R15
+                        for( i = 0; i < 16; i++ )
+                            printf("R%d = %d ( 0x%08x )\n", i, regfile[i], regfile[i]);
+                        break;
+                    case 4: // Display string from R0
+                        printf("%08x \"%s\"\n", regfile[0], mem+regfile[0] );
+                        break;
+                    case 5: // Display string from R0, and string from R1
+                        printf("%08x \"%s\"\n", regfile[0], mem+regfile[0] );
+                        printf("%08x \"%s\"\n", regfile[1], mem+regfile[1] );
+                        break;
+                    case 6: // Display new-line
+                        printf("\n");
+                        break;
+                    }
+                    break;
+                default:
+                    if( (icode1&0xf000) == 0x4000 ) { // ADDI
+                        regfile[rd] += (char)(icode1&0x00ff);
+                        name = "ADDI";
+                    } else if( (icode1&0xf0ff) == 0x90f0 ) { // LDI
+                        regfile[rd] = (short)icode2;
+                        name = "LDI";
+                    } else if( (icode1&0xffff) == 0x7000 ) { // NOP
+                        name = "NOP";
+                    } else if( (icode1&0xf0ff) == 0xd0c0 ) { // SETH
+                        regfile[rd] = (short)icode2<<16;
+                        name = "SETH";
+                    } else {
+                        goto L_DECERR;
+                    }
                 }
             }
-        }
     }
     if( trace ) {
         if( (icode1&0x8000) == 0 )
@@ -294,20 +329,20 @@ int sim_ins()
     pc = nextpc; // Set nextpc value to the program counter, pc
     return 0;
 
-L_STOP:
-    if( trace )
-        printf("PC: %08x %s\n", pc, name);
-    printf("Stop by trap(0)\n");
-    return -1;
-L_DECERR:
-    if( (icode1&0x8000) == 0 )
-        printf("Decode error: PC = %08x, icode1 = %04x\n", pc, icode1);
-    else
-        printf("Decode error: PC = %08x, icode1 = %04x, icode2 = %04x\n", pc, icode1, icode2);
-    return -1;
-L_DIV0:
-    printf("PC: %08x %s (Divide by 0)\n", pc, name);
-    return -1;
+    L_STOP:
+        if( trace )
+            printf("PC: %08x %s\n", pc, name);
+        printf("Stop by trap(0)\n");
+        return -1;
+    L_DECERR:
+        if( (icode1&0x8000) == 0 )
+            printf("Decode error: PC = %08x, icode1 = %04x\n", pc, icode1);
+        else
+            printf("Decode error: PC = %08x, icode1 = %04x, icode2 = %04x\n", pc, icode1, icode2);
+        return -1;
+    L_DIV0:
+        printf("PC: %08x %s (Divide by 0)\n", pc, name);
+        return -1;
 }
 
 int main(int ac, char **av)
