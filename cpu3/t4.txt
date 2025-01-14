@@ -1,0 +1,227 @@
+0000 90f00040 // LDI
+0004 10f4 // trap
+0006 90f00064 // LDI
+000a 91f00082 // LDI
+000e 0222 // SUB
+0010 0323 // SUB
+0012 10f5 // trap
+0014 9df00110 // LDI
+0018 1ecd // JL
+001a 7000 // NOP
+001c 10f5 // trap
+001e 10f6 // trap
+0020 90f000b5 // LDI
+0024 91f000d2 // LDI
+0028 0222 // SUB
+002a 0323 // SUB
+002c 10f5 // trap
+002e 9df00110 // LDI
+0032 1ecd // JL
+0034 10f5 // trap
+0036 10f6 // trap
+0038 90f00108 // LDI
+003c 10f4 // trap
+003e 10f0 // trap
+0040 43 // Byte data
+0041 61 // Byte data
+0042 6c // Byte data
+0043 6c // Byte data
+0044 20 // Byte data
+0045 66 // Byte data
+0046 75 // Byte data
+0047 6e // Byte data
+0048 63 // Byte data
+0049 74 // Byte data
+004a 69 // Byte data
+004b 6f // Byte data
+004c 6e // Byte data
+004d 3a // Byte data
+004e 20 // Byte data
+004f 43 // Byte data
+0050 6f // Byte data
+0051 6e // Byte data
+0052 76 // Byte data
+0053 65 // Byte data
+0054 72 // Byte data
+0055 74 // Byte data
+0056 20 // Byte data
+0057 74 // Byte data
+0058 6f // Byte data
+0059 20 // Byte data
+005a 6c // Byte data
+005b 6f // Byte data
+005c 77 // Byte data
+005d 65 // Byte data
+005e 72 // Byte data
+005f 63 // Byte data
+0060 61 // Byte data
+0061 73 // Byte data
+0062 65 // Byte data
+0063 00 // Byte data
+0064 49 // Byte data
+0065 74 // Byte data
+0066 27 // Byte data
+0067 73 // Byte data
+0068 20 // Byte data
+0069 61 // Byte data
+006a 20 // Byte data
+006b 53 // Byte data
+006c 6d // Byte data
+006d 61 // Byte data
+006e 6c // Byte data
+006f 6c // Byte data
+0070 20 // Byte data
+0071 57 // Byte data
+0072 6f // Byte data
+0073 72 // Byte data
+0074 6c // Byte data
+0075 64 // Byte data
+0076 2c // Byte data
+0077 20 // Byte data
+0078 69 // Byte data
+0079 73 // Byte data
+007a 6e // Byte data
+007b 27 // Byte data
+007c 74 // Byte data
+007d 20 // Byte data
+007e 69 // Byte data
+007f 74 // Byte data
+0080 3f // Byte data
+0081 00 // Byte data
+0082 78 // Byte data
+0083 78 // Byte data
+0084 78 // Byte data
+0085 78 // Byte data
+0086 78 // Byte data
+0087 78 // Byte data
+0088 78 // Byte data
+0089 78 // Byte data
+008a 78 // Byte data
+008b 78 // Byte data
+008c 78 // Byte data
+008d 78 // Byte data
+008e 78 // Byte data
+008f 78 // Byte data
+0090 78 // Byte data
+0091 78 // Byte data
+0092 78 // Byte data
+0093 78 // Byte data
+0094 78 // Byte data
+0095 78 // Byte data
+0096 78 // Byte data
+0097 78 // Byte data
+0098 78 // Byte data
+0099 78 // Byte data
+009a 78 // Byte data
+009b 78 // Byte data
+009c 78 // Byte data
+009d 78 // Byte data
+009e 78 // Byte data
+009f 78 // Byte data
+00a0 78 // Byte data
+00a1 78 // Byte data
+00a2 78 // Byte data
+00a3 78 // Byte data
+00a4 78 // Byte data
+00a5 78 // Byte data
+00a6 78 // Byte data
+00a7 78 // Byte data
+00a8 78 // Byte data
+00a9 78 // Byte data
+00aa 78 // Byte data
+00ab 78 // Byte data
+00ac 78 // Byte data
+00ad 78 // Byte data
+00ae 78 // Byte data
+00af 78 // Byte data
+00b0 78 // Byte data
+00b1 78 // Byte data
+00b2 78 // Byte data
+00b3 78 // Byte data
+00b4 00 // Byte data
+00b5 5b // Byte data
+00b6 45 // Byte data
+00b7 2d // Byte data
+00b8 6d // Byte data
+00b9 61 // Byte data
+00ba 69 // Byte data
+00bb 6c // Byte data
+00bc 5d // Byte data
+00bd 20 // Byte data
+00be 43 // Byte data
+00bf 6f // Byte data
+00c0 6d // Byte data
+00c1 70 // Byte data
+00c2 2e // Byte data
+00c3 41 // Byte data
+00c4 72 // Byte data
+00c5 63 // Byte data
+00c6 68 // Byte data
+00c7 40 // Byte data
+00c8 49 // Byte data
+00c9 4e // Byte data
+00ca 49 // Byte data
+00cb 41 // Byte data
+00cc 44 // Byte data
+00cd 2e // Byte data
+00ce 4f // Byte data
+00cf 52 // Byte data
+00d0 47 // Byte data
+00d1 00 // Byte data
+00d2 79 // Byte data
+00d3 79 // Byte data
+00d4 79 // Byte data
+00d5 79 // Byte data
+00d6 79 // Byte data
+00d7 79 // Byte data
+00d8 79 // Byte data
+00d9 79 // Byte data
+00da 79 // Byte data
+00db 79 // Byte data
+00dc 79 // Byte data
+00dd 79 // Byte data
+00de 79 // Byte data
+00df 79 // Byte data
+00e0 79 // Byte data
+00e1 79 // Byte data
+00e2 79 // Byte data
+00e3 79 // Byte data
+00e4 79 // Byte data
+00e5 79 // Byte data
+00e6 79 // Byte data
+00e7 79 // Byte data
+00e8 79 // Byte data
+00e9 79 // Byte data
+00ea 79 // Byte data
+00eb 79 // Byte data
+00ec 79 // Byte data
+00ed 79 // Byte data
+00ee 79 // Byte data
+00ef 79 // Byte data
+00f0 79 // Byte data
+00f1 79 // Byte data
+00f2 79 // Byte data
+00f3 79 // Byte data
+00f4 79 // Byte data
+00f5 79 // Byte data
+00f6 79 // Byte data
+00f7 79 // Byte data
+00f8 79 // Byte data
+00f9 79 // Byte data
+00fa 79 // Byte data
+00fb 79 // Byte data
+00fc 79 // Byte data
+00fd 79 // Byte data
+00fe 79 // Byte data
+00ff 79 // Byte data
+0100 79 // Byte data
+0101 79 // Byte data
+0102 79 // Byte data
+0103 79 // Byte data
+0104 00 // Byte data
+0108 45 // Byte data
+0109 6e // Byte data
+010a 64 // Byte data
+010b 2e // Byte data
+010c 00 // Byte data
+0110 1fc6 // JMP

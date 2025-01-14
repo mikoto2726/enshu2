@@ -1,0 +1,328 @@
+0000 90f00022 // LDI
+0004 10f4 // trap
+0006 d0c01234 // SETH
+000a 80e05678 // OR3
+000e 0121 // SUB
+0010 0222 // SUB
+0012 0323 // SUB
+0014 10f2 // trap
+0016 9df0016c // LDI
+001a 1ecd // JL
+001c 10f2 // trap
+001e 10f6 // trap
+0020 7f0b // BRA
+0022 43 // Byte data
+0023 61 // Byte data
+0024 6c // Byte data
+0025 6c // Byte data
+0026 20 // Byte data
+0027 66 // Byte data
+0028 75 // Byte data
+0029 6e // Byte data
+002a 63 // Byte data
+002b 74 // Byte data
+002c 69 // Byte data
+002d 6f // Byte data
+002e 6e // Byte data
+002f 20 // Byte data
+0030 31 // Byte data
+0031 3a // Byte data
+0032 20 // Byte data
+0033 52 // Byte data
+0034 65 // Byte data
+0035 76 // Byte data
+0036 65 // Byte data
+0037 72 // Byte data
+0038 73 // Byte data
+0039 65 // Byte data
+003a 20 // Byte data
+003b 33 // Byte data
+003c 32 // Byte data
+003d 2d // Byte data
+003e 62 // Byte data
+003f 69 // Byte data
+0040 74 // Byte data
+0041 20 // Byte data
+0042 62 // Byte data
+0043 69 // Byte data
+0044 74 // Byte data
+0045 2d // Byte data
+0046 6f // Byte data
+0047 72 // Byte data
+0048 64 // Byte data
+0049 65 // Byte data
+004a 72 // Byte data
+004b 00 // Byte data
+004c 90f0006e // LDI
+0050 10f4 // trap
+0052 90f0009e // LDI
+0056 0121 // SUB
+0058 0222 // SUB
+005a 0323 // SUB
+005c 10f2 // trap
+005e 10f4 // trap
+0060 9df00194 // LDI
+0064 1ecd // JL
+0066 7000 // NOP
+0068 10f2 // trap
+006a 10f6 // trap
+006c 7f0f // BRA
+006e 43 // Byte data
+006f 61 // Byte data
+0070 6c // Byte data
+0071 6c // Byte data
+0072 20 // Byte data
+0073 66 // Byte data
+0074 75 // Byte data
+0075 6e // Byte data
+0076 63 // Byte data
+0077 74 // Byte data
+0078 69 // Byte data
+0079 6f // Byte data
+007a 6e // Byte data
+007b 20 // Byte data
+007c 32 // Byte data
+007d 3a // Byte data
+007e 20 // Byte data
+007f 41 // Byte data
+0080 73 // Byte data
+0081 63 // Byte data
+0082 69 // Byte data
+0083 69 // Byte data
+0084 20 // Byte data
+0085 73 // Byte data
+0086 74 // Byte data
+0087 72 // Byte data
+0088 69 // Byte data
+0089 6e // Byte data
+008a 67 // Byte data
+008b 20 // Byte data
+008c 74 // Byte data
+008d 6f // Byte data
+008e 20 // Byte data
+008f 69 // Byte data
+0090 6e // Byte data
+0091 74 // Byte data
+0092 65 // Byte data
+0093 67 // Byte data
+0094 65 // Byte data
+0095 72 // Byte data
+0096 20 // Byte data
+0097 28 // Byte data
+0098 61 // Byte data
+0099 74 // Byte data
+009a 6f // Byte data
+009b 69 // Byte data
+009c 29 // Byte data
+009d 00 // Byte data
+009e 36 // Byte data
+009f 35 // Byte data
+00a0 34 // Byte data
+00a1 33 // Byte data
+00a2 32 // Byte data
+00a3 31 // Byte data
+00a4 00 // Byte data
+00a8 90f000ca // LDI
+00ac 10f4 // trap
+00ae 90f000f0 // LDI
+00b2 91f000fd // LDI
+00b6 0222 // SUB
+00b8 0323 // SUB
+00ba 10f5 // trap
+00bc 9df001cc // LDI
+00c0 1ecd // JL
+00c2 7000 // NOP
+00c4 10f5 // trap
+00c6 10f6 // trap
+00c8 7f16 // BRA
+00ca 43 // Byte data
+00cb 61 // Byte data
+00cc 6c // Byte data
+00cd 6c // Byte data
+00ce 20 // Byte data
+00cf 66 // Byte data
+00d0 75 // Byte data
+00d1 6e // Byte data
+00d2 63 // Byte data
+00d3 74 // Byte data
+00d4 69 // Byte data
+00d5 6f // Byte data
+00d6 6e // Byte data
+00d7 20 // Byte data
+00d8 33 // Byte data
+00d9 3a // Byte data
+00da 20 // Byte data
+00db 53 // Byte data
+00dc 74 // Byte data
+00dd 72 // Byte data
+00de 69 // Byte data
+00df 6e // Byte data
+00e0 67 // Byte data
+00e1 20 // Byte data
+00e2 63 // Byte data
+00e3 6f // Byte data
+00e4 70 // Byte data
+00e5 79 // Byte data
+00e6 20 // Byte data
+00e7 28 // Byte data
+00e8 73 // Byte data
+00e9 74 // Byte data
+00ea 72 // Byte data
+00eb 63 // Byte data
+00ec 70 // Byte data
+00ed 79 // Byte data
+00ee 29 // Byte data
+00ef 00 // Byte data
+00f0 48 // Byte data
+00f1 65 // Byte data
+00f2 6c // Byte data
+00f3 6c // Byte data
+00f4 6f // Byte data
+00f5 20 // Byte data
+00f6 77 // Byte data
+00f7 6f // Byte data
+00f8 72 // Byte data
+00f9 6c // Byte data
+00fa 64 // Byte data
+00fb 21 // Byte data
+00fc 00 // Byte data
+00fd 2a // Byte data
+00fe 2a // Byte data
+00ff 2a // Byte data
+0100 2a // Byte data
+0101 2a // Byte data
+0102 2a // Byte data
+0103 2a // Byte data
+0104 2a // Byte data
+0105 2a // Byte data
+0106 2a // Byte data
+0107 2a // Byte data
+0108 2a // Byte data
+0109 2a // Byte data
+010a 2a // Byte data
+010b 2a // Byte data
+010c 2a // Byte data
+010d 2a // Byte data
+010e 2a // Byte data
+010f 2a // Byte data
+0110 2a // Byte data
+0111 2a // Byte data
+0112 2a // Byte data
+0113 2a // Byte data
+0114 2a // Byte data
+0115 2a // Byte data
+0116 2a // Byte data
+0117 2a // Byte data
+0118 2a // Byte data
+0119 2a // Byte data
+011a 2a // Byte data
+011b 2a // Byte data
+011c 2a // Byte data
+011d 00 // Byte data
+0120 90f0013e // LDI
+0124 10f4 // trap
+0126 90f00008 // LDI
+012a 0121 // SUB
+012c 0222 // SUB
+012e 0323 // SUB
+0130 10f2 // trap
+0132 9df001e8 // LDI
+0136 1ecd // JL
+0138 10f2 // trap
+013a 10f6 // trap
+013c 7f08 // BRA
+013e 43 // Byte data
+013f 61 // Byte data
+0140 6c // Byte data
+0141 6c // Byte data
+0142 20 // Byte data
+0143 66 // Byte data
+0144 75 // Byte data
+0145 6e // Byte data
+0146 63 // Byte data
+0147 74 // Byte data
+0148 69 // Byte data
+0149 6f // Byte data
+014a 6e // Byte data
+014b 20 // Byte data
+014c 34 // Byte data
+014d 3a // Byte data
+014e 20 // Byte data
+014f 46 // Byte data
+0150 61 // Byte data
+0151 63 // Byte data
+0152 74 // Byte data
+0153 6f // Byte data
+0154 72 // Byte data
+0155 69 // Byte data
+0156 61 // Byte data
+0157 6c // Byte data
+0158 00 // Byte data
+015c 90f00164 // LDI
+0160 10f4 // trap
+0162 10f0 // trap
+0164 45 // Byte data
+0165 6e // Byte data
+0166 64 // Byte data
+0167 2e // Byte data
+0168 00 // Byte data
+016c 91f00000 // LDI
+0170 1280 // MV
+0172 93f00020 // LDI
+0176 7000 // NOP
+0178 94f00001 // LDI
+017c 04c2 // AND
+017e 01e4 // OR
+0180 43ff // ADDI
+0182 80430001 // CMPI
+0186 7c03 // BC
+0188 5141 // SLLI
+018a 5201 // SRLI
+018c 7ffb // BRA
+018e 7000 // NOP
+0190 1fce // JMP
+0192 7000 // NOP
+0194 91f00000 // LDI
+0198 1280 // MV
+019a 93f0000a // LDI
+019e 7000 // NOP
+01a0 2482 // LDB
+01a2 96f00000 // LDI
+01a6 b4060007 // BEQ
+01aa 85a4ffc7 // ADD3
+01ae 0645 // CMP
+01b0 7c05 // BC
+01b2 44d0 // ADDI
+01b4 0446 // CMP
+01b6 7c04 // BC
+01b8 1163 // MUL
+01ba 01a4 // ADD
+01bc 4201 // ADDI
+01be 7ff9 // BRA
+01c0 1fce // JMP
+01c2 7000 // NOP
+01c4 91f0ffff // LDI
+01c8 1fce // JMP
+01ca 7000 // NOP
+01cc 1280 // MV
+01ce 1381 // MV
+01d0 2482 // LDB
+01d2 2403 // STB
+01d4 4201 // ADDI
+01d6 4301 // ADDI
+01d8 96f00000 // LDI
+01dc b4060002 // BEQ
+01e0 7ffc // BRA
+01e2 7000 // NOP
+01e4 1fce // JMP
+01e6 7000 // NOP
+01e8 91f00001 // LDI
+01ec 1280 // MV
+01ee 7000 // NOP
+01f0 96f00000 // LDI
+01f4 b2060003 // BEQ
+01f8 1162 // MUL
+01fa 42ff // ADDI
+01fc 7ffd // BRA
+01fe 7000 // NOP
+0200 1fce // JMP
